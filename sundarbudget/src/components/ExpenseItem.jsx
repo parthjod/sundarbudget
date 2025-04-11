@@ -2,11 +2,9 @@ import React, { useState } from "react";
 
 function ExpenseItem({ category, label, amount, percentage, onExpenseChange }) {
   const [isEditing, setIsEditing] = useState(false);
-  // Initialize editValue safely with amount or 0 if amount is undefined
   const [editValue, setEditValue] = useState(amount || 0);
 
   const handleEdit = () => {
-    // Make sure we have a valid number for editValue
     setEditValue(amount ? amount.toFixed(0) : "0");
     setIsEditing(true);
   };
@@ -27,9 +25,8 @@ function ExpenseItem({ category, label, amount, percentage, onExpenseChange }) {
     }
   };
 
-  // Make sure amount is defined before using toLocaleString
   const formattedAmount = amount !== undefined ? amount.toLocaleString("en-IN") : "0";
-  // Use a default value of 0 for percentage if it's undefined
+
   const formattedPercentage = percentage !== undefined ? percentage.toFixed(1) : "0.0";
 
   return (

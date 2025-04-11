@@ -1,13 +1,11 @@
 import stateData from "../data/stateData";
 
 export const calculateExpenses = (state, budget, multipliers = {}) => {
-  // Return early with empty object if state or budget is invalid
   if (!state || !budget || budget <= 0) {
     return {};
   }
 
   const stateInfo = stateData[state];
-  // If the state isn't found in our data, return empty object
   if (!stateInfo) {
     return {};
   }
@@ -15,17 +13,14 @@ export const calculateExpenses = (state, budget, multipliers = {}) => {
   const expenseRatios = stateInfo.expenseRatios;
   const expenses = {};
 
-  // Calculate base expenses based on the state's expense ratios
   for (const category in expenseRatios) {
     const percentage = expenseRatios[category];
     const baseAmount = (budget * percentage) / 100;
     const multiplier = multipliers[category] || 1;
 
-    // Apply the multiplier to the base amount
     expenses[category] = baseAmount * multiplier;
   }
 
-  // Make sure the total is exactly equal to the budget
   const total = Object.values(expenses).reduce((sum, expense) => sum + expense, 0);
 
   if (total !== budget) {
@@ -38,7 +33,6 @@ export const calculateExpenses = (state, budget, multipliers = {}) => {
   return expenses;
 };
 
-// Function to get suggested budget based on state and lifestyle
 export const getSuggestedBudget = (state, lifestyle = "moderate") => {
   if (!state || !stateData[state]) {
     return 0;

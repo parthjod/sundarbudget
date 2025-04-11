@@ -52,7 +52,6 @@ function App() {
   };
 
   const handleExpenseChange = (category, value) => {
-    // Ensure value is a number
     const newExpense = parseFloat(value) || 0;
     const oldExpense = expenses[category] || 0;
     const difference = newExpense - oldExpense;
@@ -64,17 +63,14 @@ function App() {
       return;
     }
 
-    // Update the specific expense
     const newExpenses = { ...expenses, [category]: newExpense };
 
-    // Calculate the multiplier for this category
     if (selectedState && budget > 0) {
       const stateExpenseData = stateData[selectedState].expenseRatios;
       const baseExpense = (budget * stateExpenseData[category]) / 100;
       if (baseExpense > 0) {
         const newMultiplier = newExpense / baseExpense;
 
-        // Update the multiplier
         setExpenseMultipliers({
           ...expenseMultipliers,
           [category]: newMultiplier,
@@ -82,7 +78,6 @@ function App() {
       }
     }
 
-    // If expense decreased, redistribute to other categories proportionally
     if (difference < 0 && selectedState) {
       const redistributeAmount = Math.abs(difference);
       let remainingCategories = Object.keys(expenses).filter(cat => cat !== category);
@@ -98,9 +93,7 @@ function App() {
           });
         }
       }
-    }
-    // If expense increased, reduce other categories proportionally
-    else if (difference > 0) {
+    } else if (difference > 0) {
       const reduceAmount = difference;
       let remainingCategories = Object.keys(expenses).filter(cat => cat !== category);
       const totalRemainingExpense = remainingCategories.reduce((sum, cat) => sum + (newExpenses[cat] || 0), 0);

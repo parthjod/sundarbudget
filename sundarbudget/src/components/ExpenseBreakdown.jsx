@@ -12,13 +12,11 @@ function ExpenseBreakdown({ expenses, onExpenseChange, budget }) {
     others: "Other Expenses",
   };
 
-  // Use a default value of 0 for any undefined expense values
   const safeExpenses = {};
   Object.keys(categories).forEach(category => {
     safeExpenses[category] = expenses[category] || 0;
   });
 
-  // Calculate total expenses safely
   const totalExpenses = Object.values(safeExpenses).reduce((sum, expense) => sum + expense, 0);
   const remaining = budget - totalExpenses;
 

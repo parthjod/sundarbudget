@@ -1,6 +1,3 @@
-// This file contains cost of living index and expense ratios for Indian states
-// Data is approximately based on relative cost of living differences
-
 const stateData = {
   "Maharashtra": {
     costOfLivingIndex: 125,
